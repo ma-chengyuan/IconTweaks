@@ -1,6 +1,6 @@
 # IconTweaks -- Make Bitmap Icons Adaptive!
 
-[![](https://img.shields.io/badge/license-MIT-green)] [![](https://img.shields.io/badge/android-Oreo↑+Xposed-green)]
+![](https://img.shields.io/badge/license-MIT-green) ![](https://img.shields.io/badge/android-Oreo↑+Xposed-green)
 
 ~~The guy who wrote this obviously didn't spend even 10 seconds on naming.~~
 
