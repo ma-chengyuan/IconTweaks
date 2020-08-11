@@ -24,7 +24,7 @@ If you are unlucky and do get your phone into a boot loop because of *this app a
 
 Contrary to IOS, Android, at the very beginning, didn't specify what shape an app's icon should take. This of course grants developers the ultimate freedom to use whatever icon he/she wants to, but it also leads to problems to the overall consistency of the UI, especially when multiple icons are displayed together:
 
-<img src="https://s1.ax1x.com/2020/08/10/aqAdz9.jpg" alt="aqAdz9.jpg" style="zoom:50%;" />
+<img src="https://s1.ax1x.com/2020/08/10/aqAdz9.jpg" alt="aqAdz9.jpg" width="400" />
 
 ([Source][https://www.androidpolice.com/2012/09/18/ux-things-i-hate-about-android/])
 
@@ -38,13 +38,13 @@ Aware of this problem, Google offered a solution called [Adaptive Icon](https://
 
 However, this also introduce a new problem: What about the apps that haven't adopted the Adaptive Icon? They will be displayed in a very awkward way:
 
-<img src="https://s1.ax1x.com/2020/08/11/aLiClR.png" alt="aLiClR.png" style="zoom: 33%;" />
+<img src="https://s1.ax1x.com/2020/08/11/aLiClR.png" alt="aLiClR.png" width="400" />
 
 It should be pointed out that though Google Play no longer accepts legacy icons, the use of legacy bitmap icons is still prevalent in Chinese apps, since China has its own android ecosystem and don't care about Google at all. As one who uses these apps on an AOSP-like ROM, the inconsistency shown above is really killing me.
 
 It would be much better if we have
 
-<img src="https://s1.ax1x.com/2020/08/11/aLiP61.png" alt="aLiP61.png" style="zoom: 33%;" />
+<img src="https://s1.ax1x.com/2020/08/11/aLiP61.png" alt="aLiP61.png" width="400" />
 
 And this is what this Xposed module is for.
 
@@ -62,13 +62,13 @@ And this is what this Xposed module is for.
 
 4. Now, tap on the item representing the app whose icon you wish to make adaptive, and you will see this:
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLkztS.jpg" alt="aLkztS.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLkztS.jpg" alt="aLkztS.jpg" width="400" />
 
    Toggle the top switch to enable adaptive icon conversion.
 
 5. You can now tell Icon Tweaks how to make this icon adaptive. You can first crop the original icon with a circle whose radius you can adjust with the first slider.
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLkjTf.jpg" alt="aLkjTf.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLkjTf.jpg" alt="aLkjTf.jpg" width="400" />
 
    After that, you can choose to scale the cropped icon with the second slider. The cropped-and-then-scaled icon will be displayed below.
 
@@ -76,7 +76,7 @@ And this is what this Xposed module is for.
 
 6. Click "SAVE CHANGES" to save changes, and when you come back to the list you can see that Icon Tweaks can now make the legacy icon of this app adaptive:
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLkxk8.jpg" alt="aLkxk8.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLkxk8.jpg" alt="aLkxk8.jpg" width="400" />
 
 7. You need to reboot for the changes to actually take effect systemwide. Furthermore, you may need to clear the launcher's icon cache so the launcher could use the new adaptive icons. Here's a way to do this for the stock Pixel launcher: 
 
@@ -88,11 +88,11 @@ And this is what this Xposed module is for.
 
 8. Alternatively, you can choose a pure background color for the adaptive icon. Just toggle the switch with text "Using radial extrapolation", the text should change to "Background color: ..." and the stop sign on the right should change to a color tile. 
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLA9pQ.jpg" alt="aLA9pQ.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLA9pQ.jpg" alt="aLA9pQ.jpg" width="400" />
 
    Click the color tile to open up the color picker. You may pick any color from the original icon (and you may pick the pure white color by moving the selector to the margin), adjust its brightness and transparency and make it the background:
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLkX0P.jpg" alt="aLkX0P.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLkX0P.jpg" alt="aLkX0P.jpg" width="400" />
 
    This mode is most suitable for icons without a pre-defined background shape, like that of the RE file manager, for which you can simply make the background white.
 
