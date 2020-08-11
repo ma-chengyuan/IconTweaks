@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name_app">自适应图标修正</string>
+    <string name="title_icon_editor">图标编辑器</string>
+    <string name="text_crop_radius">裁剪半径: %ddp</string>
+    <string name="text_scale">缩放: %.2f</string>
+    <string name="text_enabled">启用自适应图标</string>
+    <string name="text_foreground">自适应图标全貌</string>
+    <string name="text_adaptive">自适应图标</string>
+    <string name="text_original">原图标</string>
+    <string name="text_scaled_cropped">缩放裁剪后</string>
+    <string name="button_save">保存更改</string>
+    <string name="text_config_desc">裁剪半径: %ddp 缩放: %.2f</string>
+    <string name="text_config_disabled">已禁用自适应图标转换</string>
+    <string name="text_unicolor">背景色: %s</string>
+    <string name="title_color_picker">取色盘</string>
+    <string name="text_select">选择</string>
+    <string name="text_cancel">取消</string>
+    <string name="text_radial_ext">使用径向外插算法</string>
+</resources>

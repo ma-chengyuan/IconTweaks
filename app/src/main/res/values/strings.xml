@@ -1,0 +1,23 @@
+<resources>
+    <string name="name_app">Icon Tweaks</string>
+    <string name="title_icon_editor">Icon Editor</string>
+    <string name="title_color_picker">Color Picker</string>
+
+    <string name="text_select">Select</string>
+    <string name="text_cancel">Cancel</string>
+
+    <string name="text_crop_radius">Crop radius: %ddp</string>
+    <string name="text_scale">Scale: %.2f</string>
+    <string name="text_enabled">Adaptive icon enabled</string>
+    <string name="text_config_desc">Crop Radius: %d Scale: %.2f</string>
+    <string name="text_config_disabled">Adaptive icon disabled</string>
+    <string name="text_unicolor">Background color: %s</string>
+    <string name="text_radial_ext">Using radial extrapolation</string>
+
+    <string name="text_foreground">Full adaptive icon</string>
+    <string name="text_adaptive">Final adaptive icon</string>
+    <string name="text_original">Original bitmap icon</string>
+    <string name="text_scaled_cropped">Cropped and scaled</string>
+
+    <string name="button_save">Save changes</string>
+</resources>

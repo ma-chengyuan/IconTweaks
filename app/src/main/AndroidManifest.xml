@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="alan20210202.icontweaks">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/name_app"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".IconEditorActivity" />
+
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Make old bitmap icons adaptive!" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="82" />
+
+        <provider
+            android:name=".PreferenceProvider"
+            android:authorities="alan20210202.icontweaks.preferences"
+            android:exported="true"
+            android:directBootAware="true"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/name_app"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
