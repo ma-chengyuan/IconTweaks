@@ -52,11 +52,11 @@ And this is what this Xposed module is for.
 
 1. Install this app.
 
-2. Make you enable it as an Xposed module.
+2. Make sure you have enabled it as an Xposed module.
 
 3. When you start the app it automatically detects and lists what apps are still using legacy icons:
 
-   <img src="https://s1.ax1x.com/2020/08/11/aLASfg.jpg" alt="aLASfg.jpg" style="zoom:33%;" />
+   <img src="https://s1.ax1x.com/2020/08/11/aLASfg.jpg" alt="aLASfg.jpg" width="400" />
 
    The icons on the left is their original icons, and the icons on the right is their adaptive version given by Icon Tweaks. The red stop sign means that the adaptive icon for the app is disabled (which is the default state). You will see the package name of the app (ignore this if you don't know what this means), and a brief overview of its configuration with which Icon Tweaks adapt its original legacy icon (elaborated below).
 
