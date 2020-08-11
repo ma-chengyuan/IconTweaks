@@ -4,8 +4,6 @@
 
 ~~The guy who wrote this obviously didn't spend even 10 seconds on naming.~~
 
-**Currently I switched back to non-AOSP ROMs, so I could no longer maintain this project. Feel free to fork this and improve this!**
-
 ## Disclaimer
 
 This is an Xposed module, so in order for it to function you have to install (Ed)Xposed on your phone. 
