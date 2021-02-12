@@ -18,6 +18,12 @@ If you are unlucky and do get your phone into a boot loop because of *this app a
 
 **Compatibility:** This module works best on AOSP-like ROMs. If you try to use this on ROMs such as MIUI, the latter's custom theming / resource system will probably interfere with the resource hook in this module and lead to a series of unpredictable problems. Don't try it -- you have been warned!
 
+## Note when using latest EdXposed
+
+EdXposed has now disabled resources hooks by default which is essential for IconTweaks to work.
+Please make sure you have toggled "Enable resource hook" in EdXposed Manager's setting page before
+using IconTweaks!
+
 ## Why all this?
 
 Contrary to IOS, Android, at the very beginning, didn't specify what shape an app's icon should take. This of course grants developers the ultimate freedom to use whatever icon he/she wants to, but it also leads to problems to the overall consistency of the UI, especially when multiple icons are displayed together:
