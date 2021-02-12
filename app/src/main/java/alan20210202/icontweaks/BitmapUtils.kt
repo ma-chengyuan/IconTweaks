@@ -32,10 +32,7 @@ import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.BitmapDrawable
 import kotlin.math.*
 
-fun padBitmapToAdaptiveSize(
-    bitmap: Bitmap,
-    resources: Resources
-): Bitmap {
+fun padBitmapToAdaptiveSize(bitmap: Bitmap): Bitmap {
     if (BuildConfig.DEBUG && bitmap.width != bitmap.height)
         error("The icon must have equal width and height!")
     val dpi = bitmap.density
@@ -61,7 +58,6 @@ fun cropAndScaleBitmap(
         cropRadiusDp * scale * dpi / 160,
         sizeScaled * sqrt(0.5f)
     ).roundToInt()
-    val scaled = Bitmap.createScaledBitmap(bitmap, sizeScaled, sizeScaled, false)
     val cropped = Bitmap.createBitmap(sizeScaled, sizeScaled, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(cropped)
     canvas.drawARGB(0, 0, 0, 0)
@@ -69,7 +65,7 @@ fun cropAndScaleBitmap(
     paint.color = 0xFF000000.toInt()
     canvas.drawCircle(sizeScaled / 2f, sizeScaled / 2f, cropRadius.toFloat(), paint)
     paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-    canvas.drawBitmap(scaled, 0f, 0f, paint)
+    canvas.drawBitmap(bitmap, null, Rect(0, 0, sizeScaled, sizeScaled), paint)
     paint.xfermode = null
     return cropped
 }
@@ -92,9 +88,14 @@ fun makeBitmapAdaptiveByUnicolorBackground(
     val foreground = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     var canvas = Canvas(foreground)
 
-    val offset = size / 2f - sizeScaled / 2f
     canvas.drawColor(color)
-    canvas.drawBitmap(cropped, offset, offset, null)
+    val offset = (size / 2f - sizeScaled / 2f).roundToInt()
+    canvas.drawBitmap(
+        cropped,
+        null,
+        Rect(offset, offset, offset + sizeScaled, offset + sizeScaled),
+        null
+    )
 
     val background = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     canvas = Canvas(background)
@@ -161,8 +162,12 @@ fun makeBitmapAdaptiveByRadialExtrapolation(
         else if (xEnd > 0 && yEnd == size - 1) xEnd--
         else yEnd--
     }
-    canvas.drawBitmap(cropped, offset, offset, null)
-
+    canvas.drawBitmap(
+        cropped,
+        null,
+        RectF(offset, offset, offset + sizeScaled, offset + sizeScaled),
+        null
+    )
     val background = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     canvas = Canvas(background)
     canvas.drawARGB(0, 0, 0, 0)

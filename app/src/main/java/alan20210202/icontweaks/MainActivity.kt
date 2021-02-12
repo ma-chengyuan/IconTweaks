@@ -39,6 +39,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -74,8 +75,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_MAIN, null)
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
         for (ri in packageManager.queryIntentActivities(intent, 0)) {
-            val icon = ri.loadIcon(packageManager)
             val packageName = ri.activityInfo.packageName
+            val icon = ri.loadIcon(packageManager)
             if (icon is BitmapDrawable) {
                 val res = packageManager.getResourcesForApplication(packageName)
                 val defaultJSON = IconConfig(
@@ -138,7 +139,8 @@ class MainActivity : AppCompatActivity() {
                 )
             } else {
                 holder.imageAdaptive.setImageDrawable(
-                    resources.getDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
                         R.drawable.ic_disabled_72,
                         null
                     )

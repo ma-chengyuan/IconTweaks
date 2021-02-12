@@ -27,6 +27,7 @@ package alan20210202.icontweaks
  * with using stock JSON library from android.
  */
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -81,6 +82,7 @@ data class IconConfig(
         resId = res.getIdentifier(resEntry, resType, packageName)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun getRawIcon(packageManager: PackageManager): Drawable {
         updateResourceId(packageManager)
         return packageManager

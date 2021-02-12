@@ -33,6 +33,7 @@ import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.collection.ArrayMap
+import androidx.core.content.res.ResourcesCompat
 import com.crossbowffs.remotepreferences.RemotePreferences
 import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
@@ -45,8 +46,8 @@ class Xposed : IXposedHookLoadPackage, IXposedHookInitPackageResources {
     companion object {
         private const val MY_OWN_PACKAGE_NAME = "alan20210202.icontweaks"
         private var iconConfigs: MutableMap<String, IconConfig> = mutableMapOf()
-        private var context: Context? = null
         private val cache: ArrayMap<ResourceName, AdaptiveIconDrawable> = ArrayMap()
+        private var prefsLoaded = false
 
         // Google didn't promise the thread safety of ArrayMap. These helper functions are here to
         // ensure it is indeed thread-safe.
@@ -64,12 +65,15 @@ class Xposed : IXposedHookLoadPackage, IXposedHookInitPackageResources {
      * Reading [RemotePreferences] directly in [handleInitPackageResources] seems to cause troubles,
      * so instead we read everything from it here and put it into a [MutableMap].
      */
-    private fun reloadPrefs() {
+    private fun reloadPrefs(context: Context) {
         val prefs = RemotePreferences(context, "alan20210202.icontweaks.preferences", "icon_configs")
         iconConfigs.clear()
-        for ((key, value) in prefs.all)
-            if (value is String)
+        for ((key, value) in prefs.all) {
+            if (value is String) {
                 iconConfigs[key] = IconConfig.fromJSON(value)
+            }
+        }
+        prefsLoaded = true
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
@@ -102,9 +106,8 @@ class Xposed : IXposedHookLoadPackage, IXposedHookInitPackageResources {
                 "getApplicationContext", object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {
                         super.afterHookedMethod(param)
-                        if (context != null || param.result == null) return
-                        context = param.result as Context
-                        reloadPrefs()
+                        if (prefsLoaded || param.result == null) return
+                        reloadPrefs(param.result as Context)
                     }
                 }
             )
@@ -128,7 +131,8 @@ class Xposed : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             resparam?.res?.setReplacement(it.packageName, it.resType, it.resEntry,
                 object : XResources.DrawableLoader() {
                     override fun newDrawable(res: XResources, id: Int): Drawable {
-                        val drawable = res.getDrawable(id, null)
+                        // val drawable = res.getDrawable(id, null)
+                        val drawable = ResourcesCompat.getDrawable(res, id, null)!!
                         if (drawable !is BitmapDrawable) return drawable
 
                         val resourceName = ResourceName(id, res.packageName)
@@ -147,6 +151,7 @@ class Xposed : IXposedHookLoadPackage, IXposedHookInitPackageResources {
                     }
                 }
             )
+            XposedBridge.log("Resource replaced ${it.packageName} ${it.resEntry}")
         }
     }
 }

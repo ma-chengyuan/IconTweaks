@@ -36,9 +36,9 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.FlagView
@@ -62,7 +62,9 @@ class IconEditorActivity : AppCompatActivity() {
     private lateinit var textScale: TextView
     private lateinit var barScale: SeekBar
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchEnabled: Switch
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchUnicolor: Switch
     private lateinit var imageColor: ImageView
 
@@ -106,6 +108,7 @@ class IconEditorActivity : AppCompatActivity() {
 
         textCropRadius = findViewById(R.id.text_crop_radius)
         barCropRadius = findViewById(R.id.bar_crop_radius)
+        barCropRadius.max = icon.bitmap.width
         cropRadius = iconConfig.cropRadius
         barCropRadius.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(b: SeekBar, p: Int, f: Boolean) = updateEverything()
@@ -150,15 +153,24 @@ class IconEditorActivity : AppCompatActivity() {
             canvas.drawBitmap(scaledUp, size.toFloat(), size.toFloat(), null)
             colorPicker.setPaletteDrawable(BitmapDrawable(resources, palette))
             colorPicker.flagView = CustomFlagView(this, R.layout.flag_color_picker)
-            colorPicker.setSelectorDrawable(getDrawable(R.drawable.ic_selector)!!)
+            colorPicker.setSelectorDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_selector
+                )!!
+            )
             val f = AbstractSlider::class.java.getDeclaredField("selectorDrawable")
             f.isAccessible = true
-            f.set(colorPicker.alphaSlideBar, getDrawable(R.drawable.ic_selector))
+            f.set(
+                colorPicker.alphaSlideBar,
+                ContextCompat.getDrawable(this, R.drawable.ic_selector)
+            )
             dialog.show()
         }
 
         updateEverything()
-        imageOriginal.setImageBitmap(padBitmapToAdaptiveSize(icon.bitmap, resources))
+        imageOriginal.setImageBitmap(padBitmapToAdaptiveSize(icon.bitmap))
+
 
         findViewById<Button>(R.id.button_save).setOnClickListener {
             val intent = Intent()
@@ -171,8 +183,6 @@ class IconEditorActivity : AppCompatActivity() {
 
     @ExperimentalUnsignedTypes
     private fun updateEverything() {
-        Log.i("Icon Editor", unicolor.toString())
-
         textCropRadius.text = getString(R.string.text_crop_radius, cropRadius)
         textScale.text = getString(R.string.text_scale, scale)
 
@@ -197,37 +207,36 @@ class IconEditorActivity : AppCompatActivity() {
             gd.setStroke(2, Color.BLACK)
             imageColor.setImageDrawable(gd)
         } else
-            imageColor.setImageDrawable(getDrawable(R.drawable.ic_disabled_72))
+            imageColor.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_disabled_72))
 
 
         if (enabled) {
             val adaptiveIcon = makeBitmapAdaptive(icon, iconConfig, resources)
             imageScaledCropped.setImageBitmap(
                 padBitmapToAdaptiveSize(
-                    cropAndScaleBitmap(icon, cropRadius, scale), resources
+                    cropAndScaleBitmap(icon, cropRadius, scale)
                 )
             )
             if (unicolor)
-                imageForeground.setImageDrawable(getDrawable(R.drawable.ic_disabled_108))
+                imageForeground.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_disabled_108
+                    )
+                )
             else imageForeground.setImageBitmap(
                 (adaptiveIcon.foreground as BitmapDrawable).bitmap
             )
             this.imageAdaptive.setImageDrawable(adaptiveIcon)
         } else {
             imageScaledCropped.setImageDrawable(
-                resources.getDrawable(
-                    R.drawable.ic_disabled_108, null
-                )
+                ContextCompat.getDrawable(this, R.drawable.ic_disabled_108)
             )
             imageForeground.setImageDrawable(
-                resources.getDrawable(
-                    R.drawable.ic_disabled_108, null
-                )
+                ContextCompat.getDrawable(this, R.drawable.ic_disabled_108)
             )
             imageAdaptive.setImageDrawable(
-                resources.getDrawable(
-                    R.drawable.ic_disabled_72, null
-                )
+                ContextCompat.getDrawable(this, R.drawable.ic_disabled_72)
             )
         }
     }
