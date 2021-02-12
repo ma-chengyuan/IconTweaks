@@ -30,7 +30,7 @@ Contrary to IOS, Android, at the very beginning, didn't specify what shape an ap
 
 <img src="https://s1.ax1x.com/2020/08/10/aqAdz9.jpg" alt="aqAdz9.jpg" width="400" />
 
-([Source][https://www.androidpolice.com/2012/09/18/ux-things-i-hate-about-android/])
+([Source](https://www.androidpolice.com/2012/09/18/ux-things-i-hate-about-android/))
 
 While the original idea is that a uniquely-shaped icon will make an app stand out, when all apps use this trick, every app looks weird:
 
