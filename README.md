@@ -26,7 +26,7 @@ using IconTweaks!
 
 ## Why all this?
 
-Contrary to IOS, Android, at the very beginning, didn't specify what shape an app's icon should take. This of course grants developers the ultimate freedom to use whatever icon he/she wants to, but it also leads to problems to the overall consistency of the UI, especially when multiple icons are displayed together:
+Contrary to IOS, Android, at the very beginning, didn't specify what shape an app's icon should take. This, of course, grants developers the ultimate freedom to use whatever icon he/she wants to, but it also leads to problems to the overall consistency of the UI, especially when multiple icons are displayed together:
 
 <img src="https://s1.ax1x.com/2020/08/10/aqAdz9.jpg" alt="aqAdz9.jpg" width="400" />
 
@@ -40,11 +40,11 @@ While the original idea is that a uniquely-shaped icon will make an app stand ou
 
 Aware of this problem, Google offered a solution called [Adaptive Icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive) since Android Oreo. The big picture of Adaptive Icon is: the developer provides a big background and a small foreground image for each icon, and when finally presented to the user, the icon will be cropped by a user-specified mask in a way that everything in the foreground is kept, while the large background is cropped to a unified shape.
 
-However, this also introduce a new problem: What about the apps that haven't adopted the Adaptive Icon? They will be displayed in a very awkward way:
+However, this also introduces a new problem: What about the apps that haven't adopted the Adaptive Icon? They will be displayed in a very awkward way:
 
 <img src="https://s1.ax1x.com/2020/08/11/aLiClR.png" alt="aLiClR.png" width="400" />
 
-It should be pointed out that though Google Play no longer accepts legacy icons, the use of legacy bitmap icons is still prevalent in Chinese apps, since China has its own android ecosystem and don't care about Google at all. As one who uses these apps on an AOSP-like ROM, the inconsistency shown above is really killing me.
+It should be pointed out that though Google Play no longer accepts legacy icons, the use of legacy bitmap icons is still prevalent in Chinese apps since China has its own android ecosystem and don't care about Google at all. As one who uses these apps on an AOSP-like ROM, the inconsistency shown above is really killing me.
 
 It would be much better if we have
 
@@ -62,7 +62,7 @@ And this is what this Xposed module is for.
 
    <img src="https://s1.ax1x.com/2020/08/11/aLASfg.jpg" alt="aLASfg.jpg" width="400" />
 
-   The icons on the left is their original icons, and the icons on the right is their adaptive version given by Icon Tweaks. The red stop sign means that the adaptive icon for the app is disabled (which is the default state). You will see the package name of the app (ignore this if you don't know what this means), and a brief overview of its configuration with which Icon Tweaks adapt its original legacy icon (elaborated below).
+   The icons on the left are their original icons, and the icons on the right are their adaptive versions given by Icon Tweaks. The red stop sign means that the adaptive icon for the app is disabled (which is the default state). You will see the package name of the app (ignore this if you don't know what this means), and a brief overview of its configuration with which Icon Tweaks adapt its original legacy icon (elaborated below).
 
 4. Now, tap on the item representing the app whose icon you wish to make adaptive, and you will see this:
 
@@ -82,19 +82,19 @@ And this is what this Xposed module is for.
 
    <img src="https://s1.ax1x.com/2020/08/11/aLkxk8.jpg" alt="aLkxk8.jpg" width="400" />
 
-7. You need to reboot for the changes to actually take effect systemwide. Furthermore, you may need to clear the launcher's icon cache so the launcher could use the new adaptive icons. Here's a way to do this for the stock Pixel launcher: 
+7. You need to reboot for the changes to actually take effect systemwide. Furthermore, you may need to clear the launcher's icon cache so the launcher could use the new adaptive icons. Here's a way to do this for the stock Pixel launcher:
 
    1. Long press an unoccupied space in your home screen and you will see a popup.
    2. Go to "Styles & Wallpapers" and then the "Style" tab.
    3. Apply (create a new one if necessary) a style with a different icon shape.
    4. Then switch back to your original style.
-   5. Done! 
+   5. Done!
 
-8. Alternatively, you can choose a pure background color for the adaptive icon. Just toggle the switch with text "Using radial extrapolation", the text should change to "Background color: ..." and the stop sign on the right should change to a color tile. 
+8. Alternatively, you can choose a pure background color for the adaptive icon. Just toggle the switch with the text "Using radial extrapolation", the text should change to "Background color: ..." and the stop sign on the right should change to a color tile.
 
    <img src="https://s1.ax1x.com/2020/08/11/aLA9pQ.jpg" alt="aLA9pQ.jpg" width="400" />
 
-   Click the color tile to open up the color picker. You may pick any color from the original icon (and you may pick the pure white color by moving the selector to the margin), adjust its brightness and transparency and make it the background:
+   Click the color tile to open up the color picker. You may pick any color from the original icon (and you may pick the pure white color by moving the selector to the margin), adjust its brightness and transparency, and make it the background:
 
    <img src="https://s1.ax1x.com/2020/08/11/aLkX0P.jpg" alt="aLkX0P.jpg" width="400" />
 
@@ -104,7 +104,7 @@ And this is what this Xposed module is for.
 
 The core of this module is what I refer to as "the radial extrapolation algorithm" (I came up with this independently so I don't know if there is a formal and commonly-used name for this). This algorithm helps fill out the large background required by Adaptive Icon based on the original icon.
 
-The algorithm works as follows: 
+The algorithm works as follows:
 
 1. Every pixel outside the original icon shoots a ray towards the center of the original icon.
 2. That pixel takes the color of the first opaque pixel in the original icon the ray hits.
@@ -114,4 +114,3 @@ The actual implementation differs from the procedure above to optimize performan
 Apart from this, the module uses the stock resources replacement mechanism (via `XResources`) provided by Xposed. It will not replace an app's icon if it's that app itself that wants to use it, because it may result in breaking the UI design of that app.
 
 This module should not significantly affect performance or battery usage.
-
